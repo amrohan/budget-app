@@ -9,7 +9,7 @@ const setEnv = () => {
   const envConfigFile = `export const environment = {
     auth0: {
     domain: '${process.env.AUTH0_DOMAIN}',
-    clientId: '${process.env.AUTH0_CLIENT} ',
+    clientId: '${process.env.AUTH0_CLIENT}',
     redirectUri:'${process.env.AUTH0_REDIRECT_URI}',
     production: true,
     },
