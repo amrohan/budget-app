@@ -43,6 +43,5 @@ Thumbs.db
 .env
 # Environment files
 /src/environments/environment.development.ts
-/src/environments/environment.ts
 
 .vercel
