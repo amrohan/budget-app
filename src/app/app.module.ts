@@ -14,7 +14,7 @@ import { BottomNavComponent } from './components/ui/bottom-nav/bottom-nav.compon
 import { AccountsComponent } from './pages/accounts/accounts.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { AuthModule } from '@auth0/auth0-angular';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { SidebarModule } from 'primeng/sidebar';
 import { AddTransactionComponent } from './components/add-transaction/add-transaction.component';
