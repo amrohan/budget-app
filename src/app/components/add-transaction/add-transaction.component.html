@@ -1,0 +1,187 @@
+<div class="fixed z-50 bottom-16 right-6">
+  <button
+    type="button"
+    (click)="addTransaction = true"
+    class="inline-block rounded-full bg-neutral-50 p-4 font-medium uppercase leading-normal text-neutral-800 shadow-[0_4px_9px_-4px_#cbcbcb] transition duration-150 ease-in-out hover:bg-neutral-100 hover:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] focus:bg-neutral-100 focus:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] focus:outline-none focus:ring-0 active:bg-neutral-200 active:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(251,251,251,0.3)] dark:hover:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)] dark:focus:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)] dark:active:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)]"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-5 h-5"
+      height="20"
+      width="20"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M12 4.5v15m7.5-7.5h-15"
+      />
+    </svg>
+  </button>
+</div>
+
+<div class="bg-zinc-950">
+  <p-sidebar
+    [(visible)]="addTransaction"
+    position="bottom"
+    [style]="{ height: '80vh' }"
+  >
+    <div class="w-full h-full">
+      <p-tabView>
+        <p-tabPanel header="Expense" [selected]="true">
+          <div class="w-full h-full">
+            <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="w-full">
+              <div class="gap-1 flex flex-col">
+                <label htmlFor="username" class="text-xs uppercase"
+                  >Expense Name</label
+                >
+                <input
+                  pInputText
+                  class="p-inputtext-sm"
+                  id="username"
+                  aria-describedby="username-help"
+                  name="title"
+                  [(ngModel)]="transactionItem.title"
+                />
+              </div>
+              <div class="gap-1 flex flex-col p-fluid mt-2">
+                <label class="block text-xs uppercase" for="currency-india"
+                  >Amount</label
+                >
+                <p-inputNumber
+                  [(ngModel)]="transactionItem.amount"
+                  inputId="locale-user"
+                  class="p-inputtext-sm"
+                  [minFractionDigits]="2"
+                  name="amount"
+                >
+                </p-inputNumber>
+              </div>
+              <div class="gap-1 flex flex-col p-fluid mt-2">
+                <label class="block text-xs uppercase" for="currency-india"
+                  >Category</label
+                >
+                <p-dropdown
+                  [(ngModel)]="transactionItem.category"
+                  [options]="categoriesList"
+                  class="p-inputtext-sm"
+                  name="category"
+                  placeholder="Select category"
+                ></p-dropdown>
+              </div>
+              <div class="gap-1 flex flex-col p-fluid mt-2">
+                <label class="block text-xs uppercase" for="currency-india"
+                  >Account</label
+                >
+                <p-dropdown
+                  [(ngModel)]="transactionItem.accountName"
+                  [options]="accountList"
+                  class="p-inputtext-sm"
+                  name="account"
+                  placeholder="Select a account"
+                ></p-dropdown>
+              </div>
+              <div class="gap-1 flex flex-col p-fluid mt-2">
+                <label class="block text-xs uppercase" for="currency-india"
+                  >Date</label
+                >
+                <p-calendar
+                  [(ngModel)]="transactionItem.date"
+                  class="p-inputtext-sm"
+                  [showIcon]="true"
+                  dateFormat="dd M yy"
+                  name="date"
+                ></p-calendar>
+              </div>
+              <div class="w-full mt-2 flex justify-end items-start">
+                <p-button
+                  label="Add"
+                  type="submit"
+                  icon="pi pi-plus"
+                  styleClass=" p-button-sm"
+                ></p-button>
+              </div>
+            </form>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Income">
+          <form #form="ngForm" (ngSubmit)="onIncome(form)" class="w-full">
+            <div class="gap-1 flex flex-col">
+              <label htmlFor="username" class="text-xs uppercase"
+                >Income Name</label
+              >
+              <input
+                pInputText
+                class="p-inputtext-sm"
+                id="username"
+                aria-describedby="username-help"
+                name="title"
+                [(ngModel)]="transactionItem.title"
+              />
+            </div>
+            <div class="gap-1 flex flex-col p-fluid mt-2">
+              <label class="block text-xs uppercase" for="currency-india"
+                >Amount</label
+              >
+              <p-inputNumber
+                [(ngModel)]="transactionItem.amount"
+                inputId="locale-user"
+                class="p-inputtext-sm"
+                [minFractionDigits]="2"
+                name="amount"
+              >
+              </p-inputNumber>
+            </div>
+            <div class="gap-1 flex flex-col p-fluid mt-2">
+              <label class="block text-xs uppercase" for="currency-india"
+                >Category</label
+              >
+              <p-dropdown
+                [(ngModel)]="transactionItem.category"
+                [options]="categoriesList"
+                class="p-inputtext-sm"
+                name="category"
+                placeholder="Select category"
+              ></p-dropdown>
+            </div>
+            <div class="gap-1 flex flex-col p-fluid mt-2">
+              <label class="block text-xs uppercase" for="currency-india"
+                >Account</label
+              >
+              <p-dropdown
+                [(ngModel)]="transactionItem.accountName"
+                [options]="accountList"
+                class="p-inputtext-sm"
+                name="account"
+                placeholder="Select a account"
+              ></p-dropdown>
+            </div>
+            <div class="gap-1 flex flex-col p-fluid mt-2">
+              <label class="block text-xs uppercase" for="currency-india"
+                >Date</label
+              >
+              <p-calendar
+                [(ngModel)]="transactionItem.date"
+                class="p-inputtext-sm"
+                [showIcon]="true"
+                dateFormat="dd M yy"
+                name="date"
+              ></p-calendar>
+            </div>
+            <div class="w-full mt-2 flex justify-end items-start">
+              <p-button
+                label="Add"
+                type="submit"
+                icon="pi pi-plus"
+                styleClass="p-button-sm"
+              ></p-button>
+            </div>
+          </form>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </p-sidebar>
+</div>

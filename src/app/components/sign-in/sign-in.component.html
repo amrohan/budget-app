@@ -1,0 +1,16 @@
+<button
+  (click)="auth.loginWithRedirect({
+    appState: {
+      target: '/dashboard',
+    },
+  })"
+>
+  Sign in
+</button>
+<button
+  (click)="
+    auth.logout({ logoutParams: { returnTo: document.location.origin } })
+  "
+>
+  Log out
+</button>

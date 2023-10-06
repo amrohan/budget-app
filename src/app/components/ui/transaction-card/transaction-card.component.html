@@ -1,0 +1,89 @@
+<!-- Transaction Card -->
+
+<section>
+  <div class="justify-between flex items-center">
+    <h1 class="text-2xl text-zinc-100 font-bold">Transactions</h1>
+    <!-- Filter Menu -->
+    <div class="w-full flex justify-end">
+      <button
+        class="bg-zinc-800 px-2 py-2 rounded-xl"
+        (click)="isFilterOpen = !isFilterOpen"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-5 h-5"
+          width="20"
+          height="20"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5"
+          />
+        </svg>
+      </button>
+
+      <!-- Conditionally rendering -->
+      <div class="absolute mt-11" *ngIf="isFilterOpen">
+        <p-menu [model]="items"> </p-menu>
+      </div>
+    </div>
+  </div>
+
+  <!-- Transaction Cards -->
+  <main class="mb-10">
+    <div
+      class="w-full h-full mt-2 flex flex-col gap-2"
+      *ngFor="let item of transactions"
+    >
+      <div class="w-full h-[5.5rem] bg-zinc-900 rounded-xl p-5">
+        <div class="flex justify-between items-center">
+          <!-- Title -->
+          <div class="h-full w-8/12">
+            <p class="text-base text-zinc-200 font-bold ml-1">
+              {{ item.title }}
+            </p>
+            <p class="text-xs text-zinc-400 font-bold ml-1">
+              {{ item.date | date : "mediumDate" }}
+            </p>
+          </div>
+
+          <!-- Expense Amount -->
+          <div class="flex justify-end items-center gap-2 h-full w-4/12">
+            <div
+              class="rounded-full p-1 grid place-content-center"
+              [ngClass]="
+                item.type === 'income' ? 'text-emerald-600' : 'text-red-500'
+              "
+            >
+              <p
+                *ngIf="item.type === 'expense'; else showIncomeSvg"
+                class="text-base font-semibold gap-0.5 flex flex-col justify-center items-end"
+              >
+                -₹{{ item.amount }}
+                <span class="text-xs text-zinc-400"
+                  >Sent from {{ item.accountName }}</span
+                >
+              </p>
+
+              <ng-template #showIncomeSvg>
+                <p
+                  class="text-base font-semibold gap-0.5 flex flex-col justify-center items-end"
+                >
+                  +₹{{ item.amount }}
+                  <span class="text-xs text-zinc-400"
+                    >Sent from {{ item.accountName }}</span
+                  >
+                </p>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</section>
