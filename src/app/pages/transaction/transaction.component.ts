@@ -15,7 +15,7 @@ export class TransactionComponent implements OnInit {
         "title": "Pizza",
         "category": "Personal",
         "amount": 40,
-        "date": "2023-09-23T15:28:46.447Z",
+        "date": "2023-08-23T15:28:46.447Z",
         "userId": "auth0|6502b89367e9a06d1933748d",
         "type": "expense",
         "accountName": 'Paytm'

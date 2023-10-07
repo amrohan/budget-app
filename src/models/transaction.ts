@@ -15,3 +15,8 @@ export class transaction {
     accountName?: string;
 
 }
+
+export class groupedTransactions {
+    date?: Date | string;
+    transactions?: transaction[];
+}

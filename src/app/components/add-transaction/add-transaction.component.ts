@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { transaction } from 'src/models/transaction';
 
@@ -7,7 +7,7 @@ import { transaction } from 'src/models/transaction';
   templateUrl: './add-transaction.component.html',
   encapsulation: ViewEncapsulation.None
 })
-export class AddTransactionComponent {
+export class AddTransactionComponent implements OnInit {
   addTransaction: boolean = false;
 
   transactionItem: transaction = new transaction();
@@ -16,16 +16,30 @@ export class AddTransactionComponent {
 
   // create category with key value
 
+  ngOnInit(): void {
+
+  }
+
+  onAddClick() {
+    this.addTransaction = !this.addTransaction
+    this.transactionItem.date = new Date()
+  }
 
 
 
   onSubmit(form: NgForm) {
     form.value.type = 'expense';
     console.log(form.value);
+    this.addTransaction = !this.addTransaction
+    form.resetForm();
   }
 
   onIncome(form: NgForm) {
     form.value.type = 'income';
     console.log("🚀 ~ file: add-transaction.component.ts:28 ~ AddTransactionComponent ~ onIncome ~ form:", form)
+    this.addTransaction = !this.addTransaction
+    form.resetForm();
+
+
   }
 }
