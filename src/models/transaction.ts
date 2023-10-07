@@ -20,3 +20,9 @@ export class groupedTransactions {
     date: Date | string;
     transactions: transaction[];
 }
+
+export class account {
+    userId: string;
+    name: string;
+    amount: number;
+}

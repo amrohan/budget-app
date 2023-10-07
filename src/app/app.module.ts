@@ -25,7 +25,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
+import { DialogModule } from 'primeng/dialog';
 
 
 @NgModule({
@@ -62,9 +62,7 @@ import { TagModule } from 'primeng/tag';
     InputNumberModule,
     DropdownModule,
     CalendarModule,
-    ButtonModule,
-    TagModule,
-
+    ButtonModule, DialogModule
 
   ],
   providers: [],

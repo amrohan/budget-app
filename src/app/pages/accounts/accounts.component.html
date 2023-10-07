@@ -6,7 +6,15 @@
         Total: <span>INR </span> 269.69
       </p>
     </div>
+    <p-button
+      label="Create"
+      icon="pi pi-plus"
+      (click)="showDialog()"
+      styleClass="p-button-sm p-button-secondary"
+    ></p-button>
   </header>
+
+  <!-- Accounts -->
   <main class="mt-4">
     <article
       class="h-[12rem] w-full bg-zinc-800 rounded-md border-2 border-zinc-600"
@@ -71,3 +79,46 @@
     </article>
   </main>
 </app-layout>
+<p-dialog
+  header="Create new account"
+  [(visible)]="isCreateAccount"
+  [modal]="true"
+  [style]="{ width: '90vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+    <div class="gap-1 flex flex-col">
+      <label htmlFor="username" class="text-xs uppercase">Expense Name</label>
+      <input
+        pInputText
+        class="p-inputtext-sm"
+        id="username"
+        aria-describedby="username-help"
+        name="title"
+        [(ngModel)]="accounts.name"
+      />
+    </div>
+    <div class="gap-1 flex flex-col p-fluid mt-2">
+      <label class="block text-xs uppercase" for="currency-india"
+        >Initial balance</label
+      >
+      <p-inputNumber
+        [(ngModel)]="accounts.amount"
+        inputId="locale-user"
+        class="p-inputtext-sm"
+        [minFractionDigits]="2"
+        name="amount"
+      >
+      </p-inputNumber>
+    </div>
+    <div class="w-full mt-2 flex justify-end items-start">
+      <p-button
+        label="Add"
+        type="submit"
+        icon="pi pi-plus"
+        styleClass="p-button-sm  p-button-secondary"
+      ></p-button>
+    </div>
+  </form>
+</p-dialog>
