@@ -26,6 +26,10 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { CategoryComponent } from './pages/category/category.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { AvatarModule } from 'primeng/avatar';
+import { FieldsetModule } from 'primeng/fieldset';
 
 
 @NgModule({
@@ -38,6 +42,8 @@ import { DialogModule } from 'primeng/dialog';
     AccountsComponent,
     SignInComponent,
     AddTransactionComponent,
+    CategoryComponent,
+    SettingsComponent,
 
 
   ],
@@ -62,7 +68,10 @@ import { DialogModule } from 'primeng/dialog';
     InputNumberModule,
     DropdownModule,
     CalendarModule,
-    ButtonModule, DialogModule
+    ButtonModule,
+    DialogModule,
+    AvatarModule,
+    FieldsetModule
 
   ],
   providers: [],

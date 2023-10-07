@@ -4,6 +4,8 @@ import { TransactionComponent } from './pages/transaction/transaction.component'
 import { AccountsComponent } from './pages/accounts/accounts.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { AuthGuard } from '@auth0/auth0-angular';
+import { CategoryComponent } from './pages/category/category.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 
 const routes: Routes = [
@@ -26,6 +28,16 @@ const routes: Routes = [
   {
     path: "accounts",
     component: AccountsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'category',
+    component: CategoryComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent,
     canActivate: [AuthGuard],
   }
 ];

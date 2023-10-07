@@ -1,4 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 import { transactionModel } from 'src/models/transaction';
 import { TransactionService } from 'src/services/transaction.service';
 
@@ -46,8 +47,22 @@ export class TransactionComponent implements OnInit {
 
   };
 
+
+  isSetting = false
+  items: MenuItem[] | undefined;
+
   // private transactionService = inject(TransactionService);
   ngOnInit(): void {
+    this.items = [
+      {
+        label: 'Timezone',
+        icon: 'pi pi-map',
+        command: () => {
+          this.isSetting = !this.isSetting;
+          console.log('hey');
+        }
+      }
+    ]
 
   }
 
