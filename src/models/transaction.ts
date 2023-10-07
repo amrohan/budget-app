@@ -5,18 +5,18 @@ export type transactionModel = {
 }
 
 export class transaction {
-    id?: string;
-    title?: string;
-    category?: string;
-    amount?: number;
-    date?: Date | string;
-    userId?: string;
-    type?: string;
-    accountName?: string;
+    id: string
+    title: string
+    category: string
+    amount: number;
+    date: Date | string
+    userId: string
+    type: string
+    accountName: string
 
 }
 
 export class groupedTransactions {
-    date?: Date | string;
-    transactions?: transaction[];
+    date: Date | string;
+    transactions: transaction[];
 }

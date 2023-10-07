@@ -22,21 +22,22 @@ export class TransactionCardComponent {
 
   items: MenuItem[] | undefined;
   isFilterOpen: boolean = false;
+  isSorted: boolean = true;
   groupedTransactions: groupedTransactions[] = [];
 
 
   ngOnInit() {
     this.items = [
       {
-        label: 'Price',
-        command: () => {
-          alert("You clicked priced")
-          this.isFilterOpen = !this.isFilterOpen
-        },
-        icon: 'pi pi-dollar'
-      },
-      {
         label: 'Date',
+        icon: this.isSorted ? 'pi pi-sort-amount-down' : 'pi pi-sort-amount-up',
+        command: () => {
+          this.isSorted = !this.isSorted;
+          this.groupedTransactions.reverse()
+          this.updateDateMenuItem();
+          this.isFilterOpen = !this.isFilterOpen
+
+        }
       }
     ];
 
@@ -46,8 +47,18 @@ export class TransactionCardComponent {
       const dateB = new Date(b.date ?? '').getTime();
       return dateB - dateA;
     });
+  }
 
 
+  // Sorting the ttems array based on the date
+  updateDateMenuItem() {
+    if (!this.items)
+      return;
+    const dateItem = this.items.find(item => item.label === 'Date');
+    if (dateItem) {
+      dateItem.icon = this.isSorted ? 'pi pi-sort-amount-down' : 'pi pi-sort-amount-up';
+      this.items = this.items.map(item => item.label === 'Date' ? dateItem : item);
+    }
   }
 
 }

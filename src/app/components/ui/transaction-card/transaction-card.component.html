@@ -1,6 +1,6 @@
 <!-- Transaction Card -->
 
-<section>
+<section class="pb-28">
   <div class="justify-between flex items-center">
     <h1 class="text-2xl text-zinc-100 font-bold">Transactions</h1>
     <!-- Filter Menu -->
@@ -35,7 +35,7 @@
   </div>
 
   <!-- Transaction Cards -->
-  <main class="mb-16 mt-2">
+  <main class="mt-2">
     <div *ngFor="let group of groupedTransactions" class="mb-2">
       <div class="flex justify-between items-center">
         <h2 class="font-semibold text-gray-300">
@@ -47,16 +47,14 @@
         class="w-full h-full mt-3 flex flex-col gap-2"
         *ngFor="let item of group.transactions"
       >
-        <div
-          class="w-full h-[5.5rem] bg-zinc-900 rounded-xl p-5 border border-zinc-700"
-        >
+        <div class="w-full h-[5.5rem] bg-zinc-900 rounded-xl p-5">
           <div class="flex justify-between items-center">
             <!-- Title -->
-            <div class="h-full w-7/12">
-              <p class="text-base text-zinc-200 font-bold ml-1">
+            <div class="h-full w-7/12 gap-1 flex flex-col">
+              <p class="text-base text-slate-200 font-bold ml-1">
                 {{ item.title }}
               </p>
-              <p class="text-xs text-zinc-500 font-bold ml-1">
+              <p class="text-xs text-zinc-400 font-bold ml-1">
                 {{ item.category }}
               </p>
             </div>
@@ -64,7 +62,7 @@
             <!-- Expense Amount -->
             <div class="flex justify-end items-center gap-2 h-full w-5/12">
               <div
-                class="rounded-full p-1 grid place-content-center"
+                class="rounded-full p-1 gap-1 flex flex-col"
                 [ngClass]="
                   item.type === 'income' ? 'text-emerald-600' : 'text-red-500'
                 "
@@ -74,9 +72,9 @@
                   class="text-base font-semibold gap-0.5 flex flex-col justify-center items-end"
                 >
                   -₹{{ item.amount }}
-                </p>
-                <p class="text-xs text-zinc-400">
-                  Sent from {{ item.accountName }}
+                  <span class="text-xs text-zinc-400"
+                    >From {{ item.accountName }}</span
+                  >
                 </p>
 
                 <ng-template #showIncomeSvg>
@@ -85,6 +83,7 @@
                   >
                     +₹{{ item.amount }}
                   </p>
+                  <p class="text-xs text-zinc-400">In {{ item.accountName }}</p>
                 </ng-template>
               </div>
             </div>
