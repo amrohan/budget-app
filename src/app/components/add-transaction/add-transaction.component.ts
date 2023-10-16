@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation, inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '@auth0/auth0-angular';
 import { transaction } from 'src/models/transaction';
+import { TransactionService } from 'src/services/transaction.service';
 
 @Component({
   selector: 'app-add-transaction',
@@ -9,15 +11,23 @@ import { transaction } from 'src/models/transaction';
 })
 export class AddTransactionComponent implements OnInit {
   addTransaction: boolean = false;
+  @Input() userId: string
+  @Output() loadTransaction = new EventEmitter<boolean>();
 
   transactionItem: transaction = new transaction();
+  // userId: string;
   categoriesList: string[] = ['Food', 'Transportation', 'Entertainment', 'Healthcare', 'Other'];
   accountList: string[] = ['SBI', 'HDFC', 'ICICI', 'Axis Bank', 'Citi Bank', 'PNB', 'Bank of Baroda', 'IDBI', 'UCO Bank', 'Indian Bank', 'State Bank of India', 'Karnataka Bank', 'Union Bank of India', 'Kotak', 'Paytm', 'PhonePe', 'Amazon'];
 
-  // create category with key value
+  private readonly transactionService = inject(TransactionService)
+  private readonly auth = inject(AuthService)
 
   ngOnInit(): void {
+    this.auth.user$.subscribe(res => {
+      if (res?.sub)
+        this.userId = res.sub;
 
+    })
   }
 
   onAddClick() {
@@ -29,14 +39,19 @@ export class AddTransactionComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     form.value.type = 'expense';
+    form.value.userId = this.userId
     console.log(form.value);
     this.addTransaction = !this.addTransaction
+    this.transactionService.addTransaction(form.value).subscribe(res => {
+      console.log(res)
+      this.loadTransaction.emit(true);
+    })
     form.resetForm();
   }
 
   onIncome(form: NgForm) {
     form.value.type = 'income';
-    console.log("🚀 ~ file: add-transaction.component.ts:28 ~ AddTransactionComponent ~ onIncome ~ form:", form)
+    form.value.userId = this.userId
     this.addTransaction = !this.addTransaction
     form.resetForm();
 

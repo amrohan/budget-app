@@ -5,7 +5,7 @@ export type transactionModel = {
 }
 
 export class transaction {
-    id: string
+    _id: string
     title: string
     category: string
     amount: number;
@@ -13,7 +13,6 @@ export class transaction {
     userId: string
     type: string
     accountName: string
-
 }
 
 export class groupedTransactions {

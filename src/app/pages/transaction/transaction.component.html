@@ -49,67 +49,72 @@
     </div>
   </header>
   <!-- Income and Expense Card -->
-  <main class="w-full flex justify-between items-center mt-6">
-    <!-- Income Card -->
-    <div class="w-[10rem] bg-emerald-600 rounded-xl h-[6rem]">
-      <div class="p-4">
-        <div class="flex justify-start items-center gap-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-5 h-5"
-            width="20"
-            height="20"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-            />
-          </svg>
-          <span class="text-xs font-semibold">Income</span>
+  <ng-container *ngIf="transaction$ | async as transaction">
+    <main class="w-full flex justify-between items-center mt-6">
+      <!-- Income Card -->
+      <div class="w-[10rem] bg-emerald-600 rounded-xl h-[6rem]">
+        <div class="p-4">
+          <div class="flex justify-start items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-5 h-5"
+              width="20"
+              height="20"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+              />
+            </svg>
+            <span class="text-xs font-semibold">Income</span>
+          </div>
+          <p class="text-xl mt-3 font-semibold text-center">
+            {{ transaction.totalIncome }}
+            <span class="font-normal ml-1">INR</span>
+          </p>
         </div>
-        <p class="text-xl mt-3 font-semibold text-center">
-          {{ transactions.totalIncome }}
-          <span class="font-normal ml-1">INR</span>
-        </p>
       </div>
-    </div>
-    <!-- Expense Card -->
-    <div class="w-[10rem] bg-zinc-600 rounded-xl h-[6rem]">
-      <div class="p-4">
-        <div class="flex justify-start items-center gap-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-5 h-5"
-            width="20"
-            height="20"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
-            />
-          </svg>
-          <span class="text-xs font-semibold">Expenses</span>
+      <!-- Expense Card -->
+      <div class="w-[10rem] bg-zinc-600 rounded-xl h-[6rem]">
+        <div class="p-4">
+          <div class="flex justify-start items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-5 h-5"
+              width="20"
+              height="20"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
+              />
+            </svg>
+            <span class="text-xs font-semibold">Expenses</span>
+          </div>
+          <p class="text-xl mt-3 font-semibold text-center">
+            {{ transaction.totalExpense
+            }}<span class="font-normal ml-1">INR</span>
+          </p>
         </div>
-        <p class="text-xl mt-3 font-semibold text-center">
-          {{ transactions.totalExpense
-          }}<span class="font-normal ml-1">INR</span>
-        </p>
       </div>
-    </div>
-  </main>
-  <hr class="my-6 border-1 border-zinc-700" />
-  <app-transaction-card
-    [transactions]="transactions.transaction"
-  ></app-transaction-card>
-  <app-add-transaction></app-add-transaction>
+    </main>
+    <hr class="my-6 border-1 border-zinc-700" />
+    <app-transaction-card
+      [transactions]="transaction.transaction"
+    ></app-transaction-card>
+  </ng-container>
+  <app-add-transaction
+    (loadTransaction)="loadTransactions($event)"
+    [userId]="userId"
+  ></app-add-transaction>
 </app-layout>

@@ -13,6 +13,9 @@ const setEnv = () => {
     redirectUri:'${process.env.AUTH0_REDIRECT_URI}',
     production: true,
     },
+    backend:{
+      ApiUrl: '${process.env.API_URL}',
+      AuthToken: '${process.env.API_AUTH_TOKEN}'
   }
     `;
   writeFile(targetPath, envConfigFile, (err) => {

@@ -83,7 +83,7 @@
                 [(ngModel)]="transactionItem.accountName"
                 [options]="accountList"
                 class="p-inputtext-sm"
-                name="account"
+                name="accountName"
                 placeholder="Select a account"
               ></p-dropdown>
             </div>
@@ -157,10 +157,10 @@
               >Account</label
             >
             <p-dropdown
+              name="accountName"
               [(ngModel)]="transactionItem.accountName"
               [options]="accountList"
               class="p-inputtext-sm"
-              name="account"
               placeholder="Select a account"
             ></p-dropdown>
           </div>

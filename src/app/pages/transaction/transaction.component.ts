@@ -1,6 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
 import { MenuItem } from 'primeng/api';
-import { transactionModel } from 'src/models/transaction';
+import { Observable } from 'rxjs';
+import { transaction, transactionModel } from 'src/models/transaction';
 import { TransactionService } from 'src/services/transaction.service';
 
 
@@ -9,49 +11,15 @@ import { TransactionService } from 'src/services/transaction.service';
   templateUrl: './transaction.component.html'
 })
 export class TransactionComponent implements OnInit {
-  transactions: transactionModel = {
-    "transaction": [
-      {
-        "id": "650f042fff141cf2e448df86",
-        "title": "Pizza",
-        "category": "Personal",
-        "amount": 40,
-        "date": "2023-08-23T15:28:46.447Z",
-        "userId": "auth0|6502b89367e9a06d1933748d",
-        "type": "expense",
-        "accountName": 'Paytm'
-      },
-      {
-        "id": "650f040bff141cf2e448df83",
-        "title": "Shawrma",
-        "category": "Food",
-        "amount": 80,
-        "date": "2023-09-23T15:28:10.531Z",
-        "userId": "auth0|6502b89367e9a06d1933748d",
-        "type": "expense",
-        "accountName": 'kotak'
-      },
-      {
-        "id": "650f040bff141cf2e448df83",
-        "title": "Oil Money",
-        "category": "Food",
-        "amount": 100,
-        "date": "2023-09-23T18:28:10.531Z",
-        "userId": "auth0|6502b89367e9a06d1933748d",
-        "type": "income",
-        "accountName": 'kotak'
-      },
-    ],
-    "totalExpense": 2963,
-    "totalIncome": 440
-
-  };
-
-
   isSetting = false
   items: MenuItem[] | undefined;
+  transaction$: Observable<transactionModel>;
+  userId: string
 
-  // private transactionService = inject(TransactionService);
+  private transactionService = inject(TransactionService);
+  private auth = inject(AuthService);
+
+
   ngOnInit(): void {
     this.items = [
       {
@@ -63,7 +31,20 @@ export class TransactionComponent implements OnInit {
         }
       }
     ]
+    this.auth.user$.subscribe({
+      next: (res) => {
+        if (res?.sub)
+          this.userId = res?.sub;
+        this.transaction$ = this.transactionService.getTransactionByMonthandYear(this.userId, 'Oct', 2023);
+      }, error: (err) => {
+        console.log(err);
 
+      }
+    })
   }
 
+  // loading transactions when user adds button
+  loadTransactions(eventData: any) {
+    this.transaction$ = this.transactionService.getTransactionByMonthandYear(this.userId, 'Oct', 2023)
+  }
 }

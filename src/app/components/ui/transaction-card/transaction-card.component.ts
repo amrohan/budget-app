@@ -3,15 +3,6 @@ import { MenuItem } from 'primeng/api';
 import { groupedTransactions, transaction, transactionModel } from 'src/models/transaction';
 import { groupTransactionsByDate } from 'src/utils/groupTransaction';
 
-type Transaction = {
-  id: number,
-  name: string,
-  date: string,
-  category: string,
-  amount: number,
-  transactionType: "Income" | "Expense",
-  account: string;
-}
 @Component({
   selector: 'app-transaction-card',
   templateUrl: './transaction-card.component.html',
