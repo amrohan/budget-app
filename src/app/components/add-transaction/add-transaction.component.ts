@@ -40,7 +40,6 @@ export class AddTransactionComponent implements OnInit {
   onSubmit(form: NgForm) {
     form.value.type = 'expense';
     form.value.userId = this.userId
-    console.log(form.value);
     this.addTransaction = !this.addTransaction
     this.transactionService.addTransaction(form.value).subscribe(res => {
       console.log(res)
@@ -53,7 +52,12 @@ export class AddTransactionComponent implements OnInit {
     form.value.type = 'income';
     form.value.userId = this.userId
     this.addTransaction = !this.addTransaction
+    this.transactionService.addTransaction(form.value).subscribe(res => {
+      console.log(res)
+      this.loadTransaction.emit(true);
+    })
     form.resetForm();
+
 
 
   }

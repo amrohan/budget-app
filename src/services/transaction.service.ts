@@ -17,6 +17,8 @@ export class TransactionService {
     "Bearer " + environment.backend.AuthToken
   )
 
+
+  // Get transactions
   getAllTransactions(): Observable<transactionModel> {
     // pass with credentials and with Beare token
     let headers = new HttpHeaders().set(
@@ -26,6 +28,11 @@ export class TransactionService {
     return this.http.get<transactionModel>(`${this.baseUrl}/transactions`, { headers: headers })
   }
 
+  // get transaction by user id
+  getTransactionsByUserId(userId: string): Observable<transaction> {
+    return this.http.get<transaction>(`${this.baseUrl}/transactions/all/${userId}`, { headers: this.headers })
+  }
+  // get transaction by month and year
   getTransactionByMonthandYear(userId: string, month: string, year: number): Observable<transactionModel> {
     let parmas = new HttpParams()
       .set('month', month)
@@ -35,14 +42,20 @@ export class TransactionService {
       "Authorization",
       "Bearer " + environment.backend.AuthToken
     )
-
     return this.http.get<transactionModel>(`${this.baseUrl}/transactions/user/${userId}`, { headers: this.headers, params: parmas })
   }
 
   // create Transaction
   addTransaction(transaction: transaction): Observable<transaction> {
     return this.http.post<transaction>(`${this.baseUrl}/transactions`, transaction, { headers: this.headers })
-
+  }
+  // update Transaction
+  updateTransaction(transaction: transaction): Observable<transaction> {
+    return this.http.put<transaction>(`${this.baseUrl}/transactions/${transaction._id}`, transaction, { headers: this.headers })
+  }
+  // delete Transaction
+  deleteTransaction(transactionId: string): Observable<transaction> {
+    return this.http.delete<transaction>(`${this.baseUrl}/transactions/${transactionId}`, { headers: this.headers })
   }
 
   // Timezone 
