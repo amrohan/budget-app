@@ -17,6 +17,7 @@ const setEnv = () => {
       ApiUrl: '${process.env.API_URL}',
       AuthToken: '${process.env.API_AUTH_TOKEN}'
   }
+}
     `;
   writeFile(targetPath, envConfigFile, (err) => {
     if (err) {
