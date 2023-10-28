@@ -171,4 +171,9 @@ export class TransactionCardComponent {
       }
     })
   }
+
+  addTransactionEmit() {
+
+    this.reRender.emit(true);
+  }
 }

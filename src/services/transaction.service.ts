@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, retry } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.development';
 import { TimeZone } from 'src/models/timezone';
 import { transaction, transactionModel, transactionWithoutId } from 'src/models/transaction';
 
@@ -35,7 +35,7 @@ export class TransactionService {
     return this.http.get<transaction>(`${this.baseUrl}/transactions/all/${userId}`, { headers: this.headers })
   }
   // get transaction by month and year
-  getTransactionByMonthandYear(userId: string, month: string, year: number): Observable<transactionModel> {
+  getTransactionByMonthandYear(userId: string, month: number, year: number): Observable<transactionModel> {
     let parmas = new HttpParams()
       .set('month', month)
       .set('year', year.toString());
