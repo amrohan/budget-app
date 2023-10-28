@@ -111,10 +111,8 @@
     <hr class="my-6 border-1 border-zinc-700" />
     <app-transaction-card
       [transactions]="transaction.transaction"
+      (reRender)="loadTransactions($event)"
+      [userId]="userId"
     ></app-transaction-card>
   </ng-container>
-  <app-add-transaction
-    (loadTransaction)="loadTransactions($event)"
-    [userId]="userId"
-  ></app-add-transaction>
 </app-layout>

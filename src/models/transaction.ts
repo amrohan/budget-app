@@ -15,6 +15,8 @@ export class transaction {
     accountName: string
 }
 
+export type transactionWithoutId = Omit<transaction, '_id'>;
+
 export class groupedTransactions {
     date: Date | string;
     transactions: transaction[];

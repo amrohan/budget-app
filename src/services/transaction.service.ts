@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, retry } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { TimeZone } from 'src/models/timezone';
-import { transaction, transactionModel } from 'src/models/transaction';
+import { transaction, transactionModel, transactionWithoutId } from 'src/models/transaction';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +28,8 @@ export class TransactionService {
     return this.http.get<transactionModel>(`${this.baseUrl}/transactions`, { headers: headers })
   }
 
+
+
   // get transaction by user id
   getTransactionsByUserId(userId: string): Observable<transaction> {
     return this.http.get<transaction>(`${this.baseUrl}/transactions/all/${userId}`, { headers: this.headers })
@@ -50,8 +52,8 @@ export class TransactionService {
     return this.http.post<transaction>(`${this.baseUrl}/transactions`, transaction, { headers: this.headers })
   }
   // update Transaction
-  updateTransaction(transaction: transaction): Observable<transaction> {
-    return this.http.put<transaction>(`${this.baseUrl}/transactions/${transaction._id}`, transaction, { headers: this.headers })
+  updateTransaction(id: string, transaction: transactionWithoutId): Observable<transactionWithoutId> {
+    return this.http.put<transactionWithoutId>(`${this.baseUrl}/transactions/${id}`, transaction, { headers: this.headers })
   }
   // delete Transaction
   deleteTransaction(transactionId: string): Observable<transaction> {

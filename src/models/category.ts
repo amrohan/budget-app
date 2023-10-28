@@ -3,3 +3,7 @@ export class Category {
     userId: string;
     categoryName: string
 }
+// Omit _id and userId
+export class CategoryWithoutId {
+    categoryName: string;
+}

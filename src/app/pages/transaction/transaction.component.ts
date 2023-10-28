@@ -27,7 +27,6 @@ export class TransactionComponent implements OnInit {
         icon: 'pi pi-map',
         command: () => {
           this.isSetting = !this.isSetting;
-          console.log('hey');
         }
       }
     ]
