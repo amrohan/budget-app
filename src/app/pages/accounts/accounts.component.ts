@@ -15,21 +15,77 @@ export class AccountsComponent implements OnInit {
   isCreateAccount = false;
   accountsList$: Observable<Account[]>
   userId: string
+  isCardOpen: boolean = false
 
-  accounts: account = new account();
+  accounts: Account = new Account();
   private readonly accountService = inject(AccountsService)
   private readonly auth = inject(AuthService)
 
   ngOnInit(): void {
     this.auth.user$.subscribe(res => {
       this.userId = res?.sub ?? '';
-      this.accountsList$ = this.accountService.getAccountsByUserId(this.userId)
+      this.fetchAccounts()
     })
+
+  }
+
+  fetchAccounts() {
+    this.accountsList$ = this.accountService.getAccountsByUserId(this.userId)
 
   }
 
   showDialog() {
     this.isCreateAccount = true
+  }
+
+  onCardClick(id: string) {
+    this.isCardOpen = !this.isCardOpen;
+    if (id) {
+      console.log(id);
+      this.accountService.getAccountByAccountId(id).subscribe({
+        next: (res) => {
+          this.accounts = res;
+          console.log("🚀 ~ file: accounts.component.ts:32 ~ AccountsComponent ~ onCardClick ~ res:", res)
+
+        }, error: (err) => {
+          console.log(err);
+        }
+      })
+
+    }
+  }
+
+
+  updateAccount(form: NgForm) {
+    const { _id, ...account } = this.accounts
+    if (_id) {
+      this.accountService.updateAccountById(_id, account).subscribe({
+        next: (res) => {
+          this.isCardOpen = !this.isCardOpen
+          this.fetchAccounts()
+          form.resetForm();
+        },
+        error: (err) => {
+          this.isCardOpen = !this.isCardOpen
+          console.log(err);
+        }
+      })
+
+    }
+  }
+
+  deleteAccount() {
+    if (this.accounts._id) {
+      this.accountService.deleteAccountById(this.accounts._id).subscribe({
+        next: (res) => {
+          this.isCardOpen = !this.isCardOpen
+          this.fetchAccounts()
+        }, error: (err) => {
+          console.log(err);
+        }
+      })
+    }
+
   }
 
   onSubmit(form: NgForm) {

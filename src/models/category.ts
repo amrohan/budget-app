@@ -6,4 +6,5 @@ export class Category {
 // Omit _id and userId
 export class CategoryWithoutId {
     categoryName: string;
+    userId: string
 }

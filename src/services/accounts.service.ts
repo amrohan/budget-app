@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Account } from 'src/models/accounts';
+import { Account, AccountWithoutId } from 'src/models/accounts';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +28,8 @@ export class AccountsService {
     return this.http.post<Account>(`${this.baseUrl}/accounts`, account, { headers: this.headers })
   }
 
-  updateAccountById(account: Account): Observable<Account> {
-    return this.http.put<Account>(`${this.baseUrl}/accounts/${account._id}`, account, { headers: this.headers })
+  updateAccountById(id: string, account: AccountWithoutId): Observable<Account> {
+    return this.http.put<Account>(`${this.baseUrl}/accounts/${id}`, account, { headers: this.headers })
   }
 
   deleteAccountById(accountId: string): Observable<Account> {

@@ -84,7 +84,6 @@ export class TransactionCardComponent {
     ]
 
     this.groupedTransactions = groupTransactionsByDate(this.transactions);
-    console.log("🚀 ~ file: transaction-card.component.ts:87 ~ TransactionCardComponent ~ ngOnInit ~ groupedTransactions:", this.groupedTransactions)
     this.groupedTransactions.sort((a, b) => {
       const dateA = new Date(a.date ?? '').getTime();
       const dateB = new Date(b.date ?? '').getTime();

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Category } from 'src/models/category';
+import { Category, CategoryWithoutId } from 'src/models/category';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +27,8 @@ export class CategoryService {
     return this.http.post<Category>(`${this.baseUrl}/categories`, model, { headers: this.headers })
   }
 
-  updateCategoryById(category: Category): Observable<Category> {
-    return this.http.put<Category>(`${this.baseUrl}/categories/${category._id}`, category, { headers: this.headers })
+  updateCategoryById(id: string, category: CategoryWithoutId): Observable<Category> {
+    return this.http.put<Category>(`${this.baseUrl}/categories/${id}`, category, { headers: this.headers })
   }
 
   deleteCategoryById(categoryId: string): Observable<Category> {

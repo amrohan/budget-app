@@ -3,3 +3,8 @@ export class Account {
     userId: string;
     accountName: string;
 }
+
+export class AccountWithoutId {
+    userId: string;
+    accountName: string;
+}
