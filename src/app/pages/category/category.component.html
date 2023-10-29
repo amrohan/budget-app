@@ -17,7 +17,6 @@
       <article
         *ngFor="
           let category of categoryList$ | async as Category;
-          else: loading;
           trackBy: userByCategoryId
         "
         class="h-[12rem] w-full bg-zinc-800 mb-2 rounded-md border-2 border-zinc-600"

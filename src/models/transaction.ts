@@ -19,6 +19,7 @@ export type transactionWithoutId = Omit<transaction, '_id'>;
 
 export class groupedTransactions {
     date: Date | string;
+    amount: number
     transactions: transaction[];
 }
 

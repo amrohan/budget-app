@@ -37,10 +37,24 @@
   <!-- Transaction Cards -->
   <main class="mt-2">
     <div *ngFor="let group of groupedTransactions" class="mb-2">
-      <div class="flex justify-between items-center">
-        <h2 class="font-semibold text-gray-300">
-          {{ group.date | date : "longDate" }}
-        </h2>
+      <div class="flex justify-between w-full items-center mt-4">
+        <div class="w-full">
+          <h2 class="font-semibold text-gray-300">
+            {{ group.date | date : "longDate" }}
+          </h2>
+        </div>
+        <!-- Future : v1.2 -->
+        <!-- <div class="w-full flex justify-end mr-6">
+          <p
+            class="font-bold"
+            [ngClass]="{
+              ' text-base  text-red-500': group.amount < 0,
+              ' text-emerald-600': group.amount > 0
+            }"
+          >
+            ₹{{ group.amount }}
+          </p>
+        </div> -->
       </div>
 
       <div
