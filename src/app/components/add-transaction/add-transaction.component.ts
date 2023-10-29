@@ -1,10 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation, inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
-import { Category } from 'src/models/category';
 import { transaction } from 'src/models/transaction';
-import { AccountsService } from 'src/services/accounts.service';
-import { CategoryService } from 'src/services/category.service';
 import { TransactionService } from 'src/services/transaction.service';
 
 @Component({
