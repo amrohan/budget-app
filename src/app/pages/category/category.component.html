@@ -13,13 +13,13 @@
 
   <!-- Accounts -->
   <main class="mt-4 mb-16">
-    <ng-container
-      *ngFor="
-        let category of categoryList$ | async as Category;
-        trackBy: userByCategoryId
-      "
-    >
+    <ng-container *ngIf="categoryList$ | async as categoryList; else loading">
       <article
+        *ngFor="
+          let category of categoryList$ | async as Category;
+          else: loading;
+          trackBy: userByCategoryId
+        "
         class="h-[12rem] w-full bg-zinc-800 mb-2 rounded-md border-2 border-zinc-600"
       >
         <div class="h-4/6 w-full bg-[#113946] rounded-md rounded-b-none">
@@ -81,6 +81,16 @@
         </div>
       </article>
     </ng-container>
+
+    <!-- Loading  -->
+    <ng-template #loading>
+      <div
+        class="h-[12rem] w-full bg-gray-600 mb-2 rounded-md border-2 border-zinc-600 animate-pulse"
+      ></div>
+      <div
+        class="h-[12rem] w-full bg-gray-600 mb-2 rounded-md border-2 border-zinc-600 animate-pulse"
+      ></div>
+    </ng-template>
   </main>
 </app-layout>
 

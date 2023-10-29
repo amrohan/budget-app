@@ -37,20 +37,17 @@ export class TransactionComponent implements OnInit {
       next: (res) => {
         if (res?.sub)
           this.userId = res?.sub;
-        if (this.month && this.year)
-          this.transaction$ = this.transactionService.getTransactionByMonthandYear(this.userId, parseInt(this.month, 10), parseInt(this.year, 10))
-
+        this.loadFromLocal()
       }, error: (err) => {
         console.log(err);
 
       }
     })
-    this.loadFromLocal()
   }
 
   // loading transactions when user adds button
   loadTransactions(eventData: any) {
-    this.transaction$ = this.transactionService.getTransactionByMonthandYear(this.userId, parseInt(this.month, 10), parseInt(this.year, 10))
+    this.loadFromLocal()
   }
 
   onChangeMonth() {
@@ -69,22 +66,21 @@ export class TransactionComponent implements OnInit {
 
   }
 
+  // loading month and year from local cache 
   loadFromLocal() {
-    this.month = localStorage.getItem('month') ?? '';
-    this.year = localStorage.getItem('year') ?? ''
-    // convert into date by using month and year 
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYear = currentDate.getFullYear();
 
-    const monthNumber = parseInt(this.month, 10);
-    const yearNumber = parseInt(this.year, 10);
+    const month = parseInt(localStorage.getItem('month') ?? currentMonth.toString());
+    const year = parseInt(localStorage.getItem('year') ?? currentYear.toString());
 
-    if (!isNaN(monthNumber) && !isNaN(yearNumber)) {
-      const date = new Date(yearNumber, monthNumber - 1);
-      this.date = date
-      this.transaction$ = this.transactionService.getTransactionByMonthandYear(this.userId, monthNumber, yearNumber)
-      console.log('i ran');
+    const validMonthAndYear = !isNaN(month) && !isNaN(year);
+    const finalMonth = validMonthAndYear ? month : currentMonth;
+    const finalYear = validMonthAndYear ? year : currentYear;
 
-    } else {
-      console.log("Invalid month or year");
-    }
+    this.date = new Date(finalYear, finalMonth - 1);
+    this.transaction$ = this.transactionService.getTransactionByMonthandYear(this.userId, finalMonth, finalYear);
   }
+
 }

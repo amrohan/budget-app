@@ -67,8 +67,6 @@ export class TransactionCardComponent {
             let date = new Date(toUpdate.date);
             this.transactionItem = toUpdate;
             this.transactionItem.date = date;
-            console.log("🚀 ~ file: transaction-card.component.ts:62 ~ TransactionCardComponent ~ ngOnInit ~ toUpdate:", toUpdate)
-
             this.isEditing = true;
           }
 
@@ -117,7 +115,7 @@ export class TransactionCardComponent {
   }
 
   onCardClick(_id: string) {
-    console.log(_id);
+
     this.clickedItemId = _id;
     this.isCardOpen = !this.isCardOpen;
   }
@@ -138,7 +136,6 @@ export class TransactionCardComponent {
   updateTransaction(id: string, transaction: transactionWithoutId) {
     this.transactionService.updateTransaction(id, transaction).subscribe({
       next: (res) => {
-        console.log(res);
         this.reRender.emit(true);
         this.isCardOpen = false;
         this.clickedItemId = '';
