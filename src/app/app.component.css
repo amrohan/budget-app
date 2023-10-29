@@ -8,18 +8,7 @@
   z-index: 999px;
 }
 
-:host ::ng-deep .p-calendar {
-  z-index: 9999px;
+:host ::ng-deep .add-datepicker .p-datepicker {
+  z-index: 999px;
+  margin-top: 35px;
 }
-/* :host ::ng-deep .p-calendar .p-datepicker table td.p-datepicker-today > span,
-:host
-  ::ng-deep
-  .p-calendar
-  .p-datepicker
-  table
-  td.p-datepicker-today
-  > span:hover {
-  padding: 10px;
-  color: white;
-  font-weight: bold;
-} */
