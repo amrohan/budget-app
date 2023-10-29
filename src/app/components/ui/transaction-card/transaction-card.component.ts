@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
-import { Account } from 'src/models/accounts';
-import { Category, CategoryWithoutId } from 'src/models/category';
-import { groupedTransactions, transaction, transactionModel, transactionWithoutId } from 'src/models/transaction';
+import { Category } from 'src/models/category';
+import { groupedTransactions, transaction, transactionWithoutId } from 'src/models/transaction';
 import { AccountsService } from 'src/services/accounts.service';
 import { CategoryService } from 'src/services/category.service';
 import { TransactionService } from 'src/services/transaction.service';

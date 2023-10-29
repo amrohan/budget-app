@@ -30,6 +30,7 @@ import { CategoryComponent } from './pages/category/category.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { AvatarModule } from 'primeng/avatar';
 import { FieldsetModule } from 'primeng/fieldset';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { FieldsetModule } from 'primeng/fieldset';
     AddTransactionComponent,
     CategoryComponent,
     SettingsComponent,
+    ProfileComponent,
 
 
   ],

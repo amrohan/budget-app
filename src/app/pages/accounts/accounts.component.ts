@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
 import { Observable } from 'rxjs';
 import { Account } from 'src/models/accounts';
-import { account } from 'src/models/transaction';
 import { AccountsService } from 'src/services/accounts.service';
 
 @Component({
