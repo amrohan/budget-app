@@ -7,12 +7,12 @@ export type transactionModel = {
 export class transaction {
     _id: string
     title: string
-    category: string
+    categoryId: string
     amount: number;
     date: Date | string
     userId: string
     type: string
-    accountName: string
+    accountId: string
 }
 
 export type transactionWithoutId = Omit<transaction, '_id'>;

@@ -65,13 +65,15 @@
             </div>
             <div class="gap-1 flex flex-col p-fluid mt-2">
               <label class="block text-xs uppercase" for="currency-india"
-                >Category</label
+                >categoryId</label
               >
               <p-dropdown
-                [(ngModel)]="transactionItem.category"
+                [(ngModel)]="transactionItem.categoryId"
                 [options]="categoriesList"
+                optionLabel="categoryName"
+                optionValue="_id"
                 class="p-inputtext-sm"
-                name="category"
+                name="categoryId"
                 placeholder="Select category"
               ></p-dropdown>
             </div>
@@ -80,10 +82,12 @@
                 >Account</label
               >
               <p-dropdown
-                [(ngModel)]="transactionItem.accountName"
+                [(ngModel)]="transactionItem.accountId"
                 [options]="accountList"
+                optionLabel="accountName"
+                optionValue="_id"
                 class="p-inputtext-sm"
-                name="accountName"
+                name="accountId"
                 placeholder="Select a account"
               ></p-dropdown>
             </div>
@@ -143,14 +147,16 @@
           </div>
           <div class="gap-1 flex flex-col p-fluid mt-2">
             <label class="block text-xs uppercase" for="currency-india"
-              >Category</label
+              >categoryId</label
             >
             <p-dropdown
-              [(ngModel)]="transactionItem.category"
+              [(ngModel)]="transactionItem._id"
               [options]="categoriesList"
+              optionLabel="categoryName"
+              optionValue="_id"
               class="p-inputtext-sm"
-              name="category"
-              placeholder="Select category"
+              name="categoryId"
+              placeholder="Select categoryId"
             ></p-dropdown>
           </div>
           <div class="gap-1 flex flex-col p-fluid mt-2">
@@ -158,9 +164,11 @@
               >Account</label
             >
             <p-dropdown
-              name="accountName"
-              [(ngModel)]="transactionItem.accountName"
+              name="accountId"
+              [(ngModel)]="transactionItem.accountId"
               [options]="accountList"
+              optionLabel="accountName"
+              optionValue="_id"
               class="p-inputtext-sm"
               placeholder="Select a account"
             ></p-dropdown>

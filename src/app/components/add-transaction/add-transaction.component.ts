@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation, inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
+import { Account } from 'src/models/accounts';
+import { Category } from 'src/models/category';
 import { transaction } from 'src/models/transaction';
 import { TransactionService } from 'src/services/transaction.service';
 
@@ -12,8 +14,8 @@ import { TransactionService } from 'src/services/transaction.service';
 export class AddTransactionComponent implements OnInit {
   addTransaction: boolean = false;
   @Input() userId: string
-  @Input() categoriesList: string[]
-  @Input() accountList: string[]
+  @Input() categoriesList: Category[]
+  @Input() accountList: Account[]
   @Output() loadTransaction = new EventEmitter<boolean>();
 
   transactionItem: transaction = new transaction();

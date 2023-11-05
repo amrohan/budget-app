@@ -31,6 +31,8 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { AvatarModule } from 'primeng/avatar';
 import { FieldsetModule } from 'primeng/fieldset';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { AccountIdToNamePipe } from 'src/pipe/account-id-to-name.pipe';
+import { CategoryIdToNamePipe } from 'src/pipe/category-id-to-name.pipe';
 
 
 @NgModule({
@@ -46,6 +48,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
     CategoryComponent,
     SettingsComponent,
     ProfileComponent,
+    AccountIdToNamePipe,
+    CategoryIdToNamePipe,
 
 
   ],

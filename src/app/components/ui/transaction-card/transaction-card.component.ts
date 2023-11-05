@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
+import { Account } from 'src/models/accounts';
 import { Category } from 'src/models/category';
 import { groupedTransactions, transaction, transactionWithoutId } from 'src/models/transaction';
 import { AccountsService } from 'src/services/accounts.service';
@@ -30,8 +31,8 @@ export class TransactionCardComponent {
   isSorted: boolean = true;
   transactionItem: transaction = new transaction();
   groupedTransactions: groupedTransactions[] = [];
-  categoriesList: string[]
-  accountList: string[]
+  categoriesList: Category[]
+  accountList: Account[]
   typeList: string[] = ['expense', 'income']
 
   private readonly categoryService = inject(CategoryService)
@@ -92,9 +93,7 @@ export class TransactionCardComponent {
     // getting categories
     this.categoryService.getCategoriesByUserId(this.userId).subscribe({
       next: (res) => {
-        this.categoriesList = res.map((item: Category) => {
-          return item.categoryName
-        })
+        this.categoriesList = res
       }, error: (err) => {
         console.log("🚀 ~ file: add-transaction.component.ts:42 ~ AddTransactionComponent ~ this.categoryService.getCategoriesByUserId ~ err:", err)
 
@@ -104,7 +103,7 @@ export class TransactionCardComponent {
     // getting accounst
     this.accountService.getAccountsByUserId(this.userId).subscribe({
       next: (res) => {
-        this.accountList = res.map((item) => { return item.accountName })
+        this.accountList = res
       },
       error: (err) => {
         console.log("🚀 ~ file: add-transaction.component.ts:49 ~ AddTransactionComponent ~ this.accountService.getAccountsByUserId ~ err:", err)

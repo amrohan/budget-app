@@ -68,9 +68,11 @@
               <p class="text-base text-slate-200 font-bold ml-1">
                 {{ item.title }}
               </p>
-              <p class="text-xs text-zinc-400 font-bold ml-1">
-                {{ item.category }}
-              </p>
+              <ng-container *ngIf="categoriesList">
+                <p class="text-xs text-zinc-400 font-bold ml-1">
+                  {{ item.categoryId | categoryIdToName : categoriesList }}
+                </p>
+              </ng-container>
             </div>
 
             <!-- Expense Amount -->
@@ -83,15 +85,18 @@
                   item.type === 'income' ? 'text-emerald-600' : 'text-red-500'
                 "
               >
-                <p
-                  *ngIf="item.type === 'expense'; else showIncomeSvg"
-                  class="text-base font-semibold gap-0.5 flex flex-col justify-center items-end"
-                >
-                  -₹{{ item.amount }}
-                  <span class="text-xs text-zinc-400"
-                    >From {{ item.accountName }}</span
+                <ng-container *ngIf="accountList">
+                  <p
+                    *ngIf="item.type === 'expense'; else showIncomeSvg"
+                    class="text-base font-semibold gap-0.5 flex flex-col justify-center items-end"
                   >
-                </p>
+                    -₹{{ item.amount }}
+                    <span class="text-xs text-zinc-400"
+                      >From
+                      {{ item.accountId | accountIdToName : accountList }}</span
+                    >
+                  </p>
+                </ng-container>
 
                 <ng-template #showIncomeSvg>
                   <p
@@ -99,7 +104,9 @@
                   >
                     +₹{{ item.amount }}
                   </p>
-                  <p class="text-xs text-zinc-400">In {{ item.accountName }}</p>
+                  <p class="text-xs text-zinc-400">
+                    In {{ item.accountId | accountIdToName : accountList }}
+                  </p>
                 </ng-template>
               </div>
               <div>
@@ -175,13 +182,15 @@
     </div>
     <div class="gap-1 flex flex-col p-fluid mt-2">
       <label class="block text-xs uppercase" for="currency-india"
-        >Category</label
+        >categoryId</label
       >
       <p-dropdown
-        [(ngModel)]="transactionItem.category"
+        [(ngModel)]="transactionItem.categoryId"
         [options]="categoriesList"
+        optionLabel="categoryName"
+        optionValue="_id"
         class="p-inputtext-sm"
-        name="category"
+        name="categoryId"
         placeholder="Select category"
       ></p-dropdown>
     </div>
@@ -190,9 +199,11 @@
         >Account</label
       >
       <p-dropdown
-        name="accountName"
-        [(ngModel)]="transactionItem.accountName"
+        [(ngModel)]="transactionItem.accountId"
+        name="accountId"
         [options]="accountList"
+        optionLabel="accountName"
+        optionValue="_id"
         class="p-inputtext-sm"
         placeholder="Select a account"
       ></p-dropdown>
