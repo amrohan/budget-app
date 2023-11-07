@@ -108,12 +108,17 @@
     </ng-container>
     <!-- Loading  -->
     <ng-template #loading>
-      <div
-        class="h-[12rem] w-full bg-gray-600 mb-2 rounded-md border-2 border-zinc-600 animate-pulse"
-      ></div>
-      <div
-        class="h-[12rem] w-full bg-gray-600 mb-2 rounded-md border-2 border-zinc-600 animate-pulse"
-      ></div>
+      <main class="flex h-[80vh] justify-center items-center">
+        <div
+          class="inline-block h-8 w-8 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] text-secondary motion-reduce:animate-[spin_1.5s_linear_infinite]"
+          role="status"
+        >
+          <span
+            class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+            >Loading...</span
+          >
+        </div>
+      </main>
     </ng-template>
   </main>
 </app-layout>
