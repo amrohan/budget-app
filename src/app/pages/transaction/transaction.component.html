@@ -1,7 +1,9 @@
 <app-layout>
   <header class="w-full h-full flex justify-between items-center">
     <!-- Name of user -->
-    <div><p class="text-xl font-bold">Hi Rohan</p></div>
+    <div>
+      <p class="text-lg font-bold">Hi {{ userName | async | map : "name" }}</p>
+    </div>
     <!-- date picker -->
     <div class="flex justify-end items-center gap-3">
       <!-- Calender -->

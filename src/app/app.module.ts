@@ -33,6 +33,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AccountIdToNamePipe } from 'src/pipe/account-id-to-name.pipe';
 import { CategoryIdToNamePipe } from 'src/pipe/category-id-to-name.pipe';
+import { MapPipe } from 'src/pipe/mapName.pipe';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { CategoryIdToNamePipe } from 'src/pipe/category-id-to-name.pipe';
     ProfileComponent,
     AccountIdToNamePipe,
     CategoryIdToNamePipe,
+    MapPipe,
 
 
   ],

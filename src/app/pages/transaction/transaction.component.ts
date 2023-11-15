@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthService, User } from '@auth0/auth0-angular';
 import { MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { transaction, transactionModel } from 'src/models/transaction';
@@ -15,6 +15,7 @@ export class TransactionComponent implements OnInit {
   items: MenuItem[] | undefined;
   date: Date | undefined;
   transaction$: Observable<transactionModel>;
+  userName: Observable<User | null | undefined>
   userId: string
   month: string
   year: string
@@ -40,9 +41,9 @@ export class TransactionComponent implements OnInit {
         this.loadFromLocal()
       }, error: (err) => {
         console.log(err);
-
       }
     })
+    this.userName = this.auth.user$;
   }
 
   // loading transactions when user adds button
@@ -51,8 +52,6 @@ export class TransactionComponent implements OnInit {
   }
 
   onChangeMonth() {
-    console.log(this.date)
-
     if (this.date === undefined) {
       this.date = new Date();
     } else {
