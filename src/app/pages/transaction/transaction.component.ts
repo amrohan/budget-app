@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { AuthService, User } from '@auth0/auth0-angular';
 import { MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { transaction, transactionModel } from 'src/models/transaction';
+import { transactionModel } from 'src/models/transaction';
 import { TransactionService } from 'src/services/transaction.service';
 
 
