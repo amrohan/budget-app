@@ -1,9 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { AuthService, User } from '@auth0/auth0-angular';
 import { MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { transactionModel } from 'src/models/transaction';
 import { TransactionService } from 'src/services/transaction.service';
+import Chart from 'chart.js/auto';
+
 
 
 @Component({
@@ -19,6 +21,11 @@ export class TransactionComponent implements OnInit {
   userId: string
   month: string
   year: string
+
+  // Chart js
+  chart: any = []
+
+  transactions: any = signal([])
 
   private transactionService = inject(TransactionService);
   private auth = inject(AuthService);
@@ -39,12 +46,39 @@ export class TransactionComponent implements OnInit {
         if (res?.sub)
           this.userId = res?.sub;
         this.loadFromLocal()
+        this.createChart()
+
       }, error: (err) => {
         console.log(err);
       }
     })
     this.userName = this.auth.user$;
+    // 
+
+    this.chart = new Chart('canvas', {
+      type: 'line',
+      data: {
+        labels: this.transactions().map((item: any) => item.name),
+        datasets: [
+          {
+            label: 'Expenses',
+            data: this.transactions().map((item: any) => item.data),
+            borderWidth: 1,
+            tension: 0.1,
+            fill: false,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
   }
+
 
   // loading transactions when user adds button
   loadTransactions(eventData: any) {
@@ -80,6 +114,107 @@ export class TransactionComponent implements OnInit {
 
     this.date = new Date(finalYear, finalMonth - 1);
     this.transaction$ = this.transactionService.getTransactionByMonthandYear(this.userId, finalMonth, finalYear);
+    this.transaction$.subscribe({
+      next: (res) => {
+        this.transactions.set(res.transaction)
+        const chartDatas = this.transactions().map((item: any) => {
+          const date = new Date(item.date);
+          const name = date.getDate()
+          return {
+            name: name,
+            data: item.amount
+          };
+        });
+        const chartData = chartDatas.sort(
+          (a: any, b: any) => a.name - b.name,
+        );
+
+        // If the chart doesn't exist, create it
+        if (!this.chart) {
+          this.chart = new Chart('canvas', {
+            type: 'line',
+            data: {
+              labels: chartData.map((item: any) => item.name),
+              datasets: [
+                {
+                  label: 'Expenses',
+                  data: chartData.map((item: any) => item.data),
+                  borderWidth: 1,
+                  tension: 0.1,
+                  fill: false,
+                },
+              ],
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true,
+                },
+              },
+            },
+          });
+        } else {
+          //Updating chart data if available
+          this.chart.data.labels = chartData.map((item: any) => item.name);
+          this.chart.data.datasets[0].data = chartData.map((item: any) => item.data);
+          this.chart.update();
+        }
+      }
+    })
+
+
+
   }
 
+
+  createChart() {
+    let chartData: any = []
+
+    this.transaction$.subscribe({
+      next: (data) => {
+
+
+        // const chartDatas = data.transaction.map(item => {
+        //   const date = new Date(item.date);
+        //   const name = date.getDate()
+        //   return {
+        //     name: name,
+        //     data: item.amount
+        //   };
+
+        // });
+        // chartData = chartDatas.sort(
+        //   (a: any, b: any) => a.name - b.name,
+        // );
+        // this.chart = new Chart('canvas', {
+        //   type: 'line',
+        //   data: {
+        //     labels: chartData.map((item: any) => item.name),
+        //     datasets: [
+        //       {
+        //         label: 'Expenses',
+        //         data: chartData.map((item: any) => item.data),
+        //         borderWidth: 1,
+        //         tension: 0.1,
+        //         fill: false,
+        //       },
+        //     ],
+        //   },
+        //   options: {
+        //     scales: {
+        //       y: {
+        //         beginAtZero: true,
+        //       },
+        //     },
+        //   },
+        // });
+
+      },
+      error: (err) => {
+        console.log(err);
+
+      }
+    })
+
+  }
 }
